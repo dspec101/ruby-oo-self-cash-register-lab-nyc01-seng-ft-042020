@@ -11,38 +11,27 @@ class CashRegister
  
 
     def add_item (title, price, quantity = 1) 
-       if quantity > 1
+        @total += price*quantity
         i = 0
         while i < quantity
          @items << title
          i += 1
         end
-        else
-        @items << title
-        end
-    @total += price*quantity
-    @last_transaction_amount = @total
-     @total
+    @last_transaction_amount = price*quantity
+    @total
     end
 
-  
 
     def apply_discount ()
      if @discount > 0
-        @total = @total - (@total * @discount/100)
-        "With your discount, your total comes to #{@total} "
+        @total = @total - (@total.to_f * @discount/100).to_i
+        "After the discount, the total comes to $#{@total}."
      else
-        "There is no discount"
+        "There is no discount to apply."
      end
     end
   
-# def void_last_transaction
-#         @total -= @last_transaction_amount
-#     end
+def void_last_transaction
+        @total -= @last_transaction_amount
+    end
 end
-
-  
-CashRegister.new
-CashRegister.add_item("apple", 1)
-
-binding.pry
